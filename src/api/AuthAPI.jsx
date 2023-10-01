@@ -1,6 +1,11 @@
-import {signInWithEmailAndPassword} from "firebase/auth"
-import { auth } from "../firebaseConfig"
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebaseConfig";
 
 export const LoginAPI = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password);
+  try {
+    let response = signInWithEmailAndPassword(auth, email, password);
+    return response
+  } catch (err) {
+    alert(err.errors.message);
+  }
 };

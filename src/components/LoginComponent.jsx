@@ -1,17 +1,36 @@
-import React from "react";
-import { LoginAPI } from '../api/AuthAPI'
-import "../Sass/LoginComponent.scss"
+import React, { useState } from "react";
+import { LoginAPI } from "../api/AuthAPI";
+import "../Sass/LoginComponent.scss";
 
 export default function LoginComponent() {
-  const login = () => {
-    let res = LoginAPI(); 
-    console.log(res);
-  }
+  const [credentials, setCredentials] = useState({});
+  const login = () => { 
+    let res = LoginAPI(credentials.email, credentials.password);
+    console.log(res)
+  
+  };
   return (
-    <div>
+    <div className="login-wrapper">
       <h1>LoginComponent</h1>
-      <input className="common-input" placeholder="Enter your Email"/>
-      <button onClick={login} className="login-btn">Log in to Linkedin</button>
+      <div className="auth-inputs">
+        <input
+          onChange={(event) =>
+            setCredentials({ ...credentials, email: event.target.value })
+          }
+          className="common-input"
+          placeholder="Enter your Email"
+        />
+        <input
+          onChange={(event) =>
+            setCredentials({ ...credentials, password: event.target.value })
+          }
+          className="common-input"
+          placeholder="Enter your Password"
+        />
+      </div>
+      <button onClick={login} className="login-btn">
+        Log in to Linkedin
+      </button>
     </div>
   );
 }
